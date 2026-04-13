@@ -1,8 +1,8 @@
 # Read-Deep-map-by-ORBBEC-Astra-Pro-Camera
 Đọc bản đồ độ sâu bằng camera Orbbec Astra Pro bằng ngôn ngữ Python
 
-Bạn cần tải Orbbec SDK từ website của hãng:
-https://www.orbbec.com/developers/orbbec-sdk/
+Bạn cần tải AstraSDK từ website của hãng:
+[https://www.orbbec.com/developers/orbbec-sdk/](https://www.orbbec.com/developers/astra-sdk/)
 
 Sau khi tải về thì giải nén hãy vào thư mục "bin" sau đó copy đường dẫn của thư mục "bin" này
 <img width="608" height="37" alt="image" src="https://github.com/user-attachments/assets/823455fb-506c-46f5-abcb-11aab3cd3072" />
