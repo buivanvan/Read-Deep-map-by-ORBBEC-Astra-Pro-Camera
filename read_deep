@@ -1,0 +1,44 @@
+import numpy as np
+import cv2
+from openni import openni2
+
+# Khởi tạo với đường dẫn bạn cung cấp
+openni2.initialize("C:/Users/Admin/Downloads/AstraSDK-v2.1.3-94bca0f52e-20210608T034051Z-vs2015-win64/bin")
+
+dev = openni2.Device.open_any()
+
+# ===== DEPTH STREAM =====
+depth_stream = dev.create_depth_stream()
+depth_stream.start()
+
+cap = cv2.VideoCapture(0)
+
+while True:
+    
+    # đọc camera
+    ret, frame = cap.read()
+    if not ret:
+        print('Không tìm thấy camera')
+
+    # ===== ĐỌC DEPTH =====
+    depth_frame = depth_stream.read_frame()
+    depth_data = depth_frame.get_buffer_as_uint16()
+
+    depth = np.frombuffer(depth_data, dtype=np.uint16)
+    depth = depth.reshape((480, 640))
+
+    depth_display = cv2.convertScaleAbs(depth, alpha=255/5000)
+    depth_display = cv2.applyColorMap(depth_display, cv2.COLORMAP_JET)
+
+    # ===== HIỂN THỊ =====
+    depth_display = cv2.flip(depth_display, 1) #flip_code = 0 lật ngang, 1 lật dọc, -1 lật cả hai
+    cv2.imshow("Depth", depth_display)
+    cv2.imshow("Color", frame)
+
+    if cv2.waitKey(1) == 27:
+        break
+
+# ===== CLEANUP =====
+depth_stream.stop()
+openni2.unload()
+cv2.destroyAllWindows()
